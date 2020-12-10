@@ -1,50 +1,52 @@
 const mongoose = require('mongoose')
 
 const article = new mongoose.Schema({
-    owner: {
-        type: String,
-        required: [true, 'Пожалуйста, укажите создателя'],
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+    select: false
+  },
+  keyword: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  text: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: String,
+    required: true
+  },
+  source: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true,
+    validate: {
+      validator(v) {
+        return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v);
+      },
+      message: (props) => `${props.value} - Не совсем валидная ссылка ...`,
     },
-    keyword: {
-        type: String,
-        required: [true, 'Пожалуйста, укажите ключевое слово'],
+  },
+  image: {
+    type: String,
+    required: true,
+    validate: {
+      validator(v) {
+        return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v);
+      },
+      message: (props) => `${props.value} - Не совсем валидная ссылка ...`,
     },
-    title: {
-        type: String,
-        required: [true, 'Пожалуйста, укажите заголовок статьи']
-    },
-    text: {
-        type: String,
-        required: [true, 'Пожалуйста, укажите текст статьи']
-    },
-    date: {
-        type: String,
-        required: [true, 'Пожалуйста, укажите дату статьи']
-    },
-    source: {
-        type: String,
-        required: [true, 'Пожалуйста, укажите источник статьи']
-    },
-    link: {
-        type: String,
-        required: [true, 'Пожалуйста, укажите ссылку на статьи'],
-        validate: {
-            validator(v) {
-                return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v);
-            },
-            message: (props) => `${props.value} - Не совсем валидная ссылка ...`,
-        },
-    },
-    image: {
-        type: String,
-        required: [true, 'Пожалуйста, укажите ссылку на иллюстрацию к статье'],
-        validate: {
-            validator(v) {
-                return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v);
-            },
-            message: (props) => `${props.value} - Не совсем валидная ссылка ...`,
-        },
-    }
+  }
 })
 
 module.exports = mongoose.model('article', article)

@@ -1,20 +1,19 @@
 const mongoose = require('mongoose')
-const { Schema } = require('mongoose');
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 const { SALT_ROUND } = require('../configs')
 
-const user = new Schema({
+const user = new mongoose.Schema({
   name: {
     type: String,
     minlength: 2,
     maxlength: 30,
-    required: [true, 'Пожалуйста, укажите имя']
+    required: true
   },
   email: {
     type: String,
     unique: true,
-    required: [true, 'Пожалуйста, укажите email'],
+    required: true,
     validate: {
       validator(v) {
         return validator.isEmail(v);
@@ -26,7 +25,7 @@ const user = new Schema({
     type: String,
     minlength: 6,
     maxlength: 26,
-    required: [true, 'Пожалуйста, укажите пароль'],
+    required: true,
     select: false
   }
 })

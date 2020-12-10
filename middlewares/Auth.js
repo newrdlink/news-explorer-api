@@ -1,26 +1,26 @@
 const NotAuthError = require('../errors/not-auth-err');
-const jwt = require('jsonwebtoken');
-const { NODE_ENV, JWT_SECRET } = process.env
+const jwt = require('jsonwebtoken')
+const JWT_WORD = require('../constants')
 
 module.exports = (req, res, next) => {
 
-    const { authorization } = req.headers
+  const { authorization } = req.headers
 
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-        throw new NotAuthError('Нужна авторизация');
-    }
+  if (!authorization || !authorization.startsWith('Bearer ')) {
+    throw new NotAuthError('Нужна авторизация');
+  }
 
-    const token = authorization.replace('Bearer ', '')
-    let payload
+  const token = authorization.replace('Bearer ', '')
+  let payload
 
-    try {
-        payload = jwt.verify(token, NODE_ENV === 'PROD' ? JWT_SECRET : 'The time has come');
-    } catch (error) {
-        throw new NotAuthError('Необходима повторная авторизация');
-    }
+  try {
+    payload = jwt.verify(token, JWT_WORD);
+  } catch (error) {
+    throw new NotAuthError('Необходима повторная авторизация');
+  }
+  // object with ID user
+  req.user = payload;
 
-    req.user = payload;
-
-    next();
+  next();
 }
 

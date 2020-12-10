@@ -1,6 +1,6 @@
-const NotAuthError = require('../errors/not-auth-err');
+const { NotAuthError } = require('../errors');
 const jwt = require('jsonwebtoken')
-const JWT_WORD = require('../constants')
+const { JWT_WORD } = require('../constants')
 
 module.exports = (req, res, next) => {
 
@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
   } catch (error) {
     throw new NotAuthError('Необходима повторная авторизация');
   }
-  // object with ID user
+  
   req.user = payload;
 
   next();

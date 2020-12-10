@@ -5,4 +5,18 @@ class NotFoundError extends Error {
   }
 }
 
-module.exports = NotFoundError;
+class NotAuthError extends Error {
+  constructor(message) {
+    super(message);
+    this.statusCode = 401;
+  }
+}
+
+class NotAccessError extends Error {
+  constructor(message) {
+    super(message);
+    this.statusCode = 403;
+  }
+}
+
+module.exports = { NotFoundError, NotAuthError, NotAccessError }

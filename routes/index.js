@@ -8,6 +8,7 @@ const { isValidBodyCreateUser, isValidBodyLoginUser, isAuthInHeaders } = require
 
 router.post('/signup', isValidBodyCreateUser(), userCreate)
 router.post('/signin', isValidBodyLoginUser(), login)
+
 router.use('/', isAuthInHeaders(), auth)
 router.use('/users', usersRoute)
 router.use('/articles', articlesRoute)

@@ -27,15 +27,8 @@ const isValidBodyCreateArticle = () => celebrate({
   }),
 });
 
-const isAuthInHeaders = () => celebrate({
-  headers: Joi.object().keys({
-    authorization: Joi.string().required(),
-  }).unknown(true),
-});
-
 module.exports = {
   isValidBodyCreateUser,
   isValidBodyLoginUser,
   isValidBodyCreateArticle,
-  isAuthInHeaders,
 };

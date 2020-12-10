@@ -34,7 +34,7 @@ const createArticle = (req, res, next) => {
 };
 
 const deleteArticle = (req, res, next) => {
-  const { id: _id } = req.body;
+  const { articleId: _id } = req.params;
   const { id: userId } = req.user;
 
   Article.findById({ _id }).select('+owner')

@@ -10,10 +10,6 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "max-classes-per-file": [
-    "error",
-    1
-  ],
   "rules": {
     "no-underscore-dangle": [
       "error",

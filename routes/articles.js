@@ -4,6 +4,6 @@ const { isValidBodyCreateArticle } = require('../utils/validateRequest')
 
 router.get('/', getArticles)
 router.post('/', isValidBodyCreateArticle(), createArticle)
-router.delete('/', deleteArticle)
+router.delete('/:articleId', deleteArticle)
 
 module.exports = router

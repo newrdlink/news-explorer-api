@@ -35,15 +35,19 @@ const login = (req, res, next) => {
 
   User.findOne({ email }).select('+password')
     .then((user) => {
-      verifyPass(password, user.password)
-        .then((match) => {
-          if (match) {
-            const token = jwt.sign({ id: user._id }, JWT_WORD, { expiresIn: '7d' });
-            return res.send(token);
-          }
-          throw new NotFoundError('Не правильный email или пароль');
-        })
-        .catch(next);
+      if (!user) {
+        throw new NotFoundError('Нет такого пользователя');
+      } else {
+        verifyPass(password, user.password)
+          .then((match) => {
+            if (match) {
+              const token = jwt.sign({ id: user._id }, JWT_WORD, { expiresIn: '7d' });
+              return res.send({ token });
+            }
+            throw new NotFoundError('Не правильный email или пароль');
+          })
+          .catch(next);
+      }
     })
     .catch(next);
 };

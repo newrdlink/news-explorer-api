@@ -1,6 +1,9 @@
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET, BD_ADDRESS } = process.env;
 
-const JWT_WORD = NODE_ENV === 'PROD' ? JWT_SECRET : 'The time has come';
+const production = () => NODE_ENV === 'PRODUCTION';
+
+const JWT_WORD = production() ? JWT_SECRET : 'The time has come';
+const BD_ADD = production() ? BD_ADDRESS : 'mongodb://localhost:27017/newsexplorerbd';
 
 const allowedCors = [
   'localhost:3000',
@@ -8,4 +11,9 @@ const allowedCors = [
 
 const SALT_ROUND = 10;
 
-module.exports = { JWT_WORD, allowedCors, SALT_ROUND };
+module.exports = {
+  JWT_WORD,
+  allowedCors,
+  SALT_ROUND,
+  BD_ADD,
+};

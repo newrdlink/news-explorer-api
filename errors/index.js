@@ -19,4 +19,8 @@ class NotAccessError extends Error {
   }
 }
 
-module.exports = { NotFoundError, NotAuthError, NotAccessError }
+module.exports = {
+  NotFoundError,
+  NotAuthError,
+  NotAccessError
+};

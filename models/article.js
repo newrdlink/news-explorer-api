@@ -1,11 +1,11 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const article = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: true,
-    select: false
+    select: false,
   },
   keyword: {
     type: String,
@@ -13,19 +13,19 @@ const article = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   text: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: String,
-    required: true
+    required: true,
   },
   source: {
     type: String,
-    required: true
+    required: true,
   },
   link: {
     type: String,
@@ -46,7 +46,7 @@ const article = new mongoose.Schema({
       },
       message: (props) => `${props.value} - Не совсем валидная ссылка ...`,
     },
-  }
-})
+  },
+});
 
-module.exports = mongoose.model('article', article)
+module.exports = mongoose.model('article', article);

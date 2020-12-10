@@ -1,14 +1,14 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
-const bcrypt = require('bcrypt')
-const { SALT_ROUND } = require('../configs')
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcrypt');
+const { SALT_ROUND } = require('../constants');
 
 const user = new mongoose.Schema({
   name: {
     type: String,
     minlength: 2,
     maxlength: 30,
-    required: true
+    required: true,
   },
   email: {
     type: String,
@@ -26,9 +26,9 @@ const user = new mongoose.Schema({
     minlength: 6,
     maxlength: 26,
     required: true,
-    select: false
-  }
-})
+    select: false,
+  },
+});
 
 user.pre('save', function (next) {
   return bcrypt.hash(this.password, SALT_ROUND)
@@ -39,4 +39,4 @@ user.pre('save', function (next) {
     .catch(next);
 });
 
-module.exports = mongoose.model('user', user)
+module.exports = mongoose.model('user', user);

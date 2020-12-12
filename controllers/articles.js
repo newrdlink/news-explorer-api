@@ -1,5 +1,7 @@
 const Article = require('../models/article');
-const { NotFoundError, NotAccessError } = require('../errors');
+const NotFoundError = require('../errors/not-found-err');
+const NotAccessError = require('../errors/not-access-err');
+const { notFoundErrors, notAccessErrors } = require('../constants/errorMessages');
 
 const getArticles = (req, res, next) => {
   Article.find({})
@@ -39,14 +41,14 @@ const deleteArticle = (req, res, next) => {
 
   Article.findById({ _id }).select('+owner')
     .orFail(() => {
-      throw new NotFoundError('Уже нет такой статьи');
+      throw new NotFoundError(notFoundErrors.articleNotFound);
     })
     .then((article) => {
       if (article.owner.toString() === userId) {
         Article.deleteOne({ _id })
           .then(() => res.send({ _id }))
           .catch(next);
-      } else throw new NotAccessError('У вас нет прав');
+      } else throw new NotAccessError(notAccessErrors.forbidden);
     })
     .catch(next);
 };

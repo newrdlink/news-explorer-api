@@ -9,10 +9,12 @@ const allowedCors = [
 ];
 
 const SALT_ROUND = 10;
+const bearerStr = 'Bearer ';
 
 module.exports = {
   JWT_WORD,
   allowedCors,
   SALT_ROUND,
   BD_ADD,
+  bearerStr,
 };

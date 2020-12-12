@@ -1,7 +1,7 @@
-const { NotFoundError } = require('../errors');
+const { NotFoundError } = require('../errors/not-access-err');
+const notFoundErrors = require('../constants/errorMessages');
 
 module.exports = (req) => {
-  const error = new NotFoundError(`Введенный путь ${req.url} - не допустимый`);
-  error.statusCode = 404;
+  const error = new NotFoundError(`${req.url + notFoundErrors.badPath}`);
   throw error;
 };

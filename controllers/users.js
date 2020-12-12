@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const verifyPass = require('../utils/verifyPass');
 const decodeToken = require('../utils/verifyToken');
-const { NotFoundError } = require('../errors');
+const { NotFoundError } = require('../errors/not-access-err');
+const { notFoundErrors } = require('../constants/errorMessages');
 const User = require('../models/user');
 const { JWT_WORD } = require('../constants');
 
@@ -11,7 +12,7 @@ const getUserInfo = (req, res, next) => {
   decodeToken(token)
     .then((result) => {
       if (!result) {
-        throw new NotFoundError('Проблемы с токеном');
+        throw new NotFoundError(notFoundErrors.badToken);
       }
       const { id: _id } = result;
 
@@ -36,7 +37,7 @@ const login = (req, res, next) => {
   User.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Нет такого пользователя');
+        throw new NotFoundError(notFoundErrors.userNotFound);
       } else {
         verifyPass(password, user.password)
           .then((match) => {
@@ -44,7 +45,7 @@ const login = (req, res, next) => {
               const token = jwt.sign({ id: user._id }, JWT_WORD, { expiresIn: '7d' });
               return res.send({ token });
             }
-            throw new NotFoundError('Не правильный email или пароль');
+            throw new NotFoundError(notFoundErrors.badEmailOrPassword);
           })
           .catch(next);
       }

@@ -1,3 +1,3 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
-module.exports = (pass, passBd) => bcrypt.compare(pass, passBd)
+module.exports = (pass, passBd) => bcrypt.compare(pass, passBd);

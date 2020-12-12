@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 const { SALT_ROUND } = require('../constants');
+const errorsInModels = require('../constants/errorMessages');
 
 const user = new mongoose.Schema({
   name: {
@@ -18,7 +19,7 @@ const user = new mongoose.Schema({
       validator(v) {
         return validator.isEmail(v);
       },
-      message: (props) => `${props.value} - Не совсем валидный email ...`,
+      message: (props) => `${props.value} - ${errorsInModels.badEmail}`,
     },
   },
   password: {

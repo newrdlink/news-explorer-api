@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
-const { JWT_WORD } = require('../constants');
+const { JWT_WORD, bearerStr } = require('../constants');
 
 const decodeToken = async (token) => {
   try {
-    const decodingToken = await jwt.verify(token.replace('Bearer ', ''), JWT_WORD);
+    const decodingToken = await jwt.verify(token.replace(bearerStr, ''), JWT_WORD);
     return decodingToken;
   } catch (error) {
     return false;

@@ -1,4 +1,4 @@
-const NotFoundError = require('../errors/not-access-err');
+const NotFoundError = require('../errors/not-found-err');
 const { notFoundErrors } = require('../constants/errorMessages');
 
 module.exports = (req) => {

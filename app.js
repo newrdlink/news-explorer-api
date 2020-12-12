@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
-const { BD_ADD } = require('./constants');
+const { BD_ADD } = require('./config');
 const errCtl = require('./middlewares/handlerErrors');
 const rateLimit = require('./utils/reqLimiter');
 

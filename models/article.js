@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const errorsInModels = require('../constants/errorMessages');
+const { errorsInModels } = require('../constants/errorMessages');
 
 const article = new mongoose.Schema({
   owner: {
@@ -35,7 +35,7 @@ const article = new mongoose.Schema({
       validator(v) {
         return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v);
       },
-      message: (props) => `${props.value} - ${errorsInModels.badLink}`,
+      message: () => errorsInModels.badLink,
     },
   },
   image: {
@@ -45,7 +45,7 @@ const article = new mongoose.Schema({
       validator(v) {
         return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v);
       },
-      message: (props) => `${props.value} - ${errorsInModels.badLink}`,
+      message: () => errorsInModels.badLink,
     },
   },
 });

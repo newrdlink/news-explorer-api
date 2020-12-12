@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 const verifyPass = require('../utils/verifyPass');
 const decodeToken = require('../utils/verifyToken');
-const { NotFoundError } = require('../errors/not-access-err');
-const { notFoundErrors } = require('../constants/errorMessages');
+const NotAuthError = require('../errors/not-auth-err');
+const NotFoundError = require('../errors/not-found-err');
+const { notFoundErrors, notAuthErrors } = require('../constants/errorMessages');
 const User = require('../models/user');
-const { JWT_WORD } = require('../constants');
+const { JWT_WORD } = require('../config');
 
 const getUserInfo = (req, res, next) => {
   const { authorization: token } = req.headers;
@@ -27,7 +28,7 @@ const userCreate = (req, res, next) => {
   const { email, password, name } = req.body;
 
   User.create({ email, password, name })
-    .then((user) => res.send(user))
+    .then((user) => res.send({ id: user._id, email: user.email }))
     .catch(next);
 };
 
@@ -37,7 +38,7 @@ const login = (req, res, next) => {
   User.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw new NotFoundError(notFoundErrors.userNotFound);
+        throw new NotAuthError(notAuthErrors.userNotFound);
       } else {
         verifyPass(password, user.password)
           .then((match) => {
@@ -45,7 +46,7 @@ const login = (req, res, next) => {
               const token = jwt.sign({ id: user._id }, JWT_WORD, { expiresIn: '7d' });
               return res.send({ token });
             }
-            throw new NotFoundError(notFoundErrors.badEmailOrPassword);
+            throw new NotAuthError(notAuthErrors.badEmailOrPass);
           })
           .catch(next);
       }

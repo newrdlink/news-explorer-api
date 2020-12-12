@@ -1,7 +1,5 @@
 const notFoundErrors = {
   badToken: 'Проблемы с токеном',
-  userNotFound: 'Нет такого пользователя',
-  badEmailOrPassword: 'Не правильный email или пароль',
   articleNotFound: 'Уже нет такой статьи',
   badPath: ' - нет такого пути',
 };
@@ -13,6 +11,8 @@ const notAccessErrors = {
 const notAuthErrors = {
   noAuth: 'Нужна авторизация',
   reAuth: 'Необходима повторная авторизация',
+  userNotFound: 'Нет такого пользователя',
+  badEmailOrPass: 'Не правильный email или пароль',
 };
 
 const errorsInModels = {
@@ -20,9 +20,15 @@ const errorsInModels = {
   badEmail: 'Не совсем валидный email ...',
 };
 
+const generalErrors = {
+  emailRepeat: 'Такой email уже есть',
+  failData: 'Дело в том, что это не валидные данные',
+};
+
 module.exports = {
   notFoundErrors,
   notAccessErrors,
   notAuthErrors,
   errorsInModels,
+  generalErrors,
 };

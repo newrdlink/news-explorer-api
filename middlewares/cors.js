@@ -1,4 +1,4 @@
-const { allowedCors } = require('../constants');
+const { allowedCors } = require('../config');
 
 const handlerCors = (req, res, next) => {
   const { origin } = req.headers;

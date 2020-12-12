@@ -1,18 +1,18 @@
 {
   "name": "news-explorer-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Дипломная работа по курсу Web-developer",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon node app.js"
+    "start": "node app",
+    "dev": "nodemon app"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/newrdlink/news-explorer-api.git"
   },
-  "author": "",
+  "author": "Роман Дидух",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/newrdlink/news-explorer-api/issues"

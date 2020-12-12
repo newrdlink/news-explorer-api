@@ -4,22 +4,22 @@ const isValidBodyCreateUser = () => celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
-    password: Joi.string().min(6).max(26),
+    password: Joi.string().required().min(6).max(26),
   }),
 });
 
 const isValidBodyLoginUser = () => celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(6),
+    password: Joi.string().required().min(6).max(26),
   }),
 });
 
 const isValidBodyCreateArticle = () => celebrate({
   body: Joi.object().keys({
-    keyword: Joi.string().required().min(2),
+    keyword: Joi.string().required(),
     title: Joi.string().required(),
-    text: Joi.string().min(6),
+    text: Joi.string().required(),
     date: Joi.string().required(),
     source: Joi.string().required(),
     link: Joi.string().required(),

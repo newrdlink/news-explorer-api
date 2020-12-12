@@ -4,8 +4,13 @@ const NotAccessError = require('../errors/not-access-err');
 const { notFoundErrors, notAccessErrors } = require('../constants/errorMessages');
 
 const getArticles = (req, res, next) => {
-  Article.find({})
-    .then((articles) => res.send(articles))
+  const { id: userId } = req.user;
+
+  Article.find({}).select('+owner')
+    .then((articles) => {
+      const listArticles = articles.filter((article) => article.owner.toString() === userId);
+      res.send(listArticles);
+    })
     .catch(next);
 };
 

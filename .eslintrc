@@ -14,8 +14,7 @@
       "error",
       {
         "allow": [
-          "_id",
-          "_message"
+          "_id"
         ]
       }
     ]

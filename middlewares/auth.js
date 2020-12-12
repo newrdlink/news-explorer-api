@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const NotAuthError = require('../errors/not-auth-err');
-const notAuthErrors = require('../constants/errorMessages');
-const { JWT_WORD, bearerStr } = require('../constants');
+const { notAuthErrors } = require('../constants/errorMessages');
+const { JWT_WORD } = require('../config');
+const bearerStr = require('../constants');
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;

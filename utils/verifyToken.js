@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { JWT_WORD, bearerStr } = require('../constants');
+const { JWT_WORD } = require('../config');
+const bearerStr = require('../constants');
 
 const decodeToken = async (token) => {
   try {

@@ -2,6 +2,7 @@ const notFoundErrors = {
   badToken: 'Проблемы с токеном',
   articleNotFound: 'Уже нет такой статьи',
   badPath: ' - нет такого пути',
+  userNotFound: 'нет такого пользователя',
 };
 
 const notAccessErrors = {

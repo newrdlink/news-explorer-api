@@ -3,7 +3,8 @@ const verifyPass = require('../utils/verifyPass');
 const decodeToken = require('../utils/verifyToken');
 const NotAuthError = require('../errors/not-auth-err');
 const NotFoundError = require('../errors/not-found-err');
-const { notFoundErrors, notAuthErrors } = require('../constants/errorMessages');
+const ConflictError = require('../errors/conflict-err');
+const { notFoundErrors, notAuthErrors, generalErrors } = require('../constants/errorMessages');
 const User = require('../models/user');
 const { JWT_WORD } = require('../config');
 
@@ -18,6 +19,9 @@ const getUserInfo = (req, res, next) => {
       const { id: _id } = result;
 
       User.findById({ _id })
+        .orFail(() => {
+          throw new NotFoundError(notFoundErrors.userNotFound);
+        })
         .then((user) => res.send({ email: user.email, name: user.name }))
         .catch(next);
     })
@@ -29,7 +33,12 @@ const userCreate = (req, res, next) => {
 
   User.create({ email, password, name })
     .then((user) => res.send({ id: user._id, email: user.email }))
-    .catch(next);
+    .catch((error) => {
+      if (error.code === 11000 && error.name === 'MongoError') {
+        return next(new ConflictError(generalErrors.emailRepeat));
+      }
+      return next(error);
+    });
 };
 
 const login = (req, res, next) => {

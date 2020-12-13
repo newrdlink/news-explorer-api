@@ -22,8 +22,12 @@ const isValidBodyCreateArticle = () => celebrate({
     text: Joi.string().required(),
     date: Joi.string().required(),
     source: Joi.string().required(),
-    link: Joi.string().required(),
-    image: Joi.string().required(),
+    link: Joi.string()
+      .required()
+      .pattern(new RegExp(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/)),
+    image: Joi.string()
+      .required()
+      .pattern(new RegExp(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/)),
   }),
 });
 

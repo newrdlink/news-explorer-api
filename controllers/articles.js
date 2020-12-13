@@ -1,15 +1,14 @@
 const Article = require('../models/article');
 const NotFoundError = require('../errors/not-found-err');
 const NotAccessError = require('../errors/not-access-err');
-const { notFoundErrors, notAccessErrors } = require('../constants/errorMessages');
+const { notFoundErrors, notAccessErrors, generalErrors } = require('../constants/errorMessages');
 
 const getArticles = (req, res, next) => {
-  const { id: userId } = req.user;
+  const { id: owner } = req.user;
 
-  Article.find({}).select('+owner')
+  Article.find({ owner })
     .then((articles) => {
-      const listArticles = articles.filter((article) => article.owner.toString() === userId);
-      res.send(listArticles);
+      res.send(articles);
     })
     .catch(next);
 };
@@ -24,7 +23,7 @@ const createArticle = (req, res, next) => {
     link,
     image,
   } = req.body;
-  const { id: userId } = req.user;
+  const { id: owner } = req.user;
 
   Article.create({
     keyword,
@@ -34,7 +33,7 @@ const createArticle = (req, res, next) => {
     source,
     link,
     image,
-    owner: userId,
+    owner,
   })
     .then((article) => res.send(article))
     .catch(next);
@@ -55,7 +54,12 @@ const deleteArticle = (req, res, next) => {
           .catch(next);
       } else throw new NotAccessError(notAccessErrors.forbidden);
     })
-    .catch(next);
+    .catch((error) => {
+      if (error.kind === 'ObjectId') {
+        return res.status(400).send({ message: generalErrors.failData });
+      }
+      return next(error);
+    });
 };
 
 module.exports = {

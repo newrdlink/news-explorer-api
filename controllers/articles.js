@@ -1,6 +1,7 @@
 const Article = require('../models/article');
 const NotFoundError = require('../errors/not-found-err');
 const NotAccessError = require('../errors/not-access-err');
+const DataFailError = require('../errors/data-fail-err');
 const { notFoundErrors, notAccessErrors, generalErrors } = require('../constants/errorMessages');
 
 const getArticles = (req, res, next) => {
@@ -56,7 +57,7 @@ const deleteArticle = (req, res, next) => {
     })
     .catch((error) => {
       if (error.kind === 'ObjectId') {
-        return res.status(400).send({ message: generalErrors.failData });
+        return next(new DataFailError(generalErrors.failData));
       }
       return next(error);
     });

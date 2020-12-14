@@ -37,7 +37,12 @@ const createArticle = (req, res, next) => {
     owner,
   })
     .then(({ id }) => res.send({ id }))
-    .catch(next);
+    .catch((error) => {
+      if (error.name === 'ValidationError') {
+        return next(new DataFailError(generalErrors.failData));
+      }
+      return next(error);
+    });
 };
 
 const deleteArticle = (req, res, next) => {

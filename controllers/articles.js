@@ -36,7 +36,7 @@ const createArticle = (req, res, next) => {
     image,
     owner,
   })
-    .then((article) => res.send(article))
+    .then(({ id }) => res.send({ id }))
     .catch(next);
 };
 

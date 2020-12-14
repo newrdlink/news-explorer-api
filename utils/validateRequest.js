@@ -15,6 +15,12 @@ const isValidBodyLoginUser = () => celebrate({
   }),
 });
 
+const isValidReqIdArticleDelete = () => celebrate({
+  params: Joi.object().keys({
+    articleId: Joi.string().required().length(24),
+  }),
+});
+
 const isValidBodyCreateArticle = () => celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().required(),
@@ -35,4 +41,5 @@ module.exports = {
   isValidBodyCreateUser,
   isValidBodyLoginUser,
   isValidBodyCreateArticle,
+  isValidReqIdArticleDelete,
 };

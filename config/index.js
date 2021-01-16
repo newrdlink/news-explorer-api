@@ -11,7 +11,7 @@ const allowedCors = [
 ];
 
 const corsOptions = {
-  origin: 'localhost:3000',
+  origin: 'http://localhost:3000',
   optionsSuccessStatus: 200,
 };
 

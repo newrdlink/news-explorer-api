@@ -7,12 +7,12 @@ const { errors } = require('celebrate');
 const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
-const { BD_ADD, corsOptions } = require('./config');
+const { BD_ADD } = require('./config');
 const errCtl = require('./middlewares/handlerErrors');
 const rateLimit = require('./utils/reqLimiter');
 
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors());
 
 // const handlerCors = require('./middlewares/cors');
 

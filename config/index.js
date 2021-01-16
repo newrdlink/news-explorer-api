@@ -10,10 +10,10 @@ const allowedCors = [
   'http://localhost:3000',
 ];
 
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200,
-};
+// const corsOptions = {
+//   origin: 'http://localhost:3000',
+//   optionsSuccessStatus: 200,
+// };
 
 const SALT_ROUND = 10;
 
@@ -22,5 +22,4 @@ module.exports = {
   allowedCors,
   SALT_ROUND,
   BD_ADD,
-  corsOptions,
 };

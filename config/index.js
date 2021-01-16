@@ -7,6 +7,7 @@ const BD_ADD = production() ? BD_ADDRESS : 'mongodb://localhost:27017/newsexplor
 
 const allowedCors = [
   'localhost:3000',
+  'http://localhost:3000',
 ];
 
 const SALT_ROUND = 10;

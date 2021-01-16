@@ -12,6 +12,7 @@ const errCtl = require('./middlewares/handlerErrors');
 const rateLimit = require('./utils/reqLimiter');
 
 const app = express();
+app.use(cors());
 
 // const handlerCors = require('./middlewares/cors');
 
@@ -29,7 +30,6 @@ app.use(bodyParser.json());
 
 app.use(helmet.contentSecurityPolicy());
 // app.use(handlerCors);
-app.use(cors());
 
 app.use(requestLogger);
 

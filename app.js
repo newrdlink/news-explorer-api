@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
 const { BD_ADD } = require('./config');
@@ -12,7 +13,7 @@ const rateLimit = require('./utils/reqLimiter');
 
 const app = express();
 
-const handlerCors = require('./middlewares/cors');
+// const handlerCors = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 
@@ -27,7 +28,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(helmet.contentSecurityPolicy());
-app.use(handlerCors);
+// app.use(handlerCors);
+app.use(cors());
 
 app.use(requestLogger);
 

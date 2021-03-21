@@ -7,7 +7,7 @@ const { errors } = require('celebrate');
 const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
-const { BD_ADD } = require('./config');
+const { BD_ADD, PORT } = require('./config');
 const errCtl = require('./middlewares/handlerErrors');
 const rateLimit = require('./utils/reqLimiter');
 
@@ -16,7 +16,7 @@ app.use(cors());
 
 // const handlerCors = require('./middlewares/cors');
 
-const { PORT = 3000 } = process.env;
+// const { PORT = 3000 } = process.env;
 
 mongoose.connect(BD_ADD, {
   useNewUrlParser: true,

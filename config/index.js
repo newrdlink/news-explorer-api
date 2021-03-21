@@ -1,4 +1,9 @@
-const { NODE_ENV, JWT_SECRET, BD_ADDRESS } = process.env;
+const {
+  NODE_ENV,
+  JWT_SECRET,
+  BD_ADDRESS,
+  PORT = 3000,
+} = process.env;
 
 const production = () => NODE_ENV === 'production';
 
@@ -22,4 +27,5 @@ module.exports = {
   allowedCors,
   SALT_ROUND,
   BD_ADD,
+  PORT,
 };
